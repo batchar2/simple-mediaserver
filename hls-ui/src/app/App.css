@@ -1,0 +1,18 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+  font-size: calc(10px + 2vmin);
+}
+
+#content {
+  /*float: right;*/
+  /*margin-left: 240px;*/
+  padding-top: 15px;
+}
+
+#left-menu {
+  position: absolute;
+  width: 220px;
+  height: 100vh;
+}
