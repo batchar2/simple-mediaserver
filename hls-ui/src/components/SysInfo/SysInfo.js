@@ -8,7 +8,6 @@ import ReactSpeedometer from "react-d3-speedometer";
 const SysInfo = () => {
     const [info, setInfo] = useState({});
     useEffect(() => {
-        console.log("!!!!")
         const id = setInterval(() => {
             axios.get('/api/info/')
                 .then(resp => {
@@ -23,6 +22,7 @@ const SysInfo = () => {
             <Row>
                 { info &&
                 <ReactSpeedometer
+                    maxValue={1600}
                     value={info.cpu && parseFloat(info.cpu).toFixed( 2 )}
                     currentValueText={info.cpu && `${parseFloat(info.cpu).toFixed( 2 )} CPU%`}
                     segmentColors={["limegreen", "gold", "tomato", "firebrick", ]}
@@ -33,7 +33,7 @@ const SysInfo = () => {
             <Row>
                 { info &&
                 <ReactSpeedometer
-                    // maxValue={3}
+                    maxValue={8000}
                     value={info.memory && parseFloat(info.memory).toFixed( 2 )}
                     currentValueText={info.memory && `Memory ${info.memory}Mb`}
                     segmentColors={["limegreen", "gold", "tomato", "firebrick", ]}

@@ -1,4 +1,5 @@
 import os
+import time
 import glob
 import json
 import shutil
@@ -18,6 +19,7 @@ CONFIG_DEFAULT = {
     'bitrate': '1M',
     'i-frame': 50,
     'preset': 'ultrafast',
+    'crf': 21,
 }
 # FFMPEG_CMD_TEMPLATE = '''ffmpeg -i "{uri}"
 #         -c:v libx264 -r 25 -s {resolution} -crf 21 -maxrate {bitrate} -bufsize 2M -preset {preset} -keyint_min {i-frame} -g {i-frame} -sc_threshold 0 \
@@ -26,7 +28,7 @@ CONFIG_DEFAULT = {
 #         stream.m3u8
 # '''
 FFMPEG_CMD_TEMPLATE = '''ffmpeg -i {uri}
-        -c:v libx264 -r 25 -s {resolution} -crf 21 -maxrate {bitrate} -bufsize 2M -preset {preset} -keyint_min {i-frame} -g {i-frame} -sc_threshold 0
+        -c:v libx264 -r 25 -s {resolution} -crf {crf} -maxrate {bitrate} -bufsize 2M -preset {preset} -keyint_min {i-frame} -g {i-frame} -sc_threshold 0
         -c:a aac -b:a 128k -ac 1
         -f hls
             -hls_time 2
@@ -94,7 +96,7 @@ class SimpleMediaserver:
     def get_info(self):
         if self._process is not None:
             cpu, memory = self._get_resources_info()
-            bitrate, duration = self._get_last_chank_info()
+            bitrate, duration = self._get_last_chank_info(5)
             return {
                 'pid': self._process.pid,
                 'cpu': cpu,
@@ -116,17 +118,20 @@ class SimpleMediaserver:
         memory = process.memory_info()[0]/2
         return cpu, round(memory / (1024*1024), 3)
 
-    def _get_last_chank_info(self):
-        try:
-            mask = Path(HLS_DATA_FOLDER) / '*.ts'
-            list_of_files = glob.glob(str(mask))
-            files = sorted(list_of_files, key=os.path.getctime, reverse=True)
-            if len(files) > 2:
-                filename = files[1]
-                info = MediaInfo(filename=filename).getInfo()
-                bitrate = round(int(info['videoBitrate']) / (1024*1024), 3)
-                duration = info['videoDuration']
-                return bitrate, duration
-        except Exception as err:
-            print('!!!>>>>>>', err)
+    def _get_last_chank_info(self, r):
+        if r != 0:
+            try:
+                mask = Path(HLS_DATA_FOLDER) / '*.ts'
+                list_of_files = glob.glob(str(mask))
+                files = sorted(list_of_files, key=os.path.getctime, reverse=True)
+                if len(files) > 2:
+                    filename = files[1]
+                    info = MediaInfo(filename=filename).getInfo()
+                    bitrate = round(int(info['videoBitrate']) / (1024*1024), 3)
+                    duration = info['videoDuration']
+                    return bitrate, duration
+            except Exception as err:
+                print('!!!>>>>>>', err)
+                time.sleep(0.3)
+                return self._get_last_chank_info(r-1)
         return 0, 0

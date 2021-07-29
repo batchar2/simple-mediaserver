@@ -5,7 +5,7 @@ import SettingsForm from "../../components/SettingsForm";
 
 const Settings = () => {
 
-    const [settings, setSettings] = useState([]);
+    const [settings, setSettings] = useState(undefined);
     useEffect(() => {
         axios.get('/api/settings/')
             .then(resp => {
@@ -24,7 +24,10 @@ const Settings = () => {
     return (
         <>
             Settings
-            <SettingsForm onSubmit={onSubmit} data={settings}/>
+            {
+                settings && <SettingsForm onSubmit={onSubmit} data={settings}/>
+            }
+
         </>
     );
 };
