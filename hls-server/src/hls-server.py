@@ -21,7 +21,7 @@ def set_settings():
     return jsonify(config)
 
 
-@app.route('/api/video/<stream>.m3u8', methods=['GET',])
+@app.route('/api/video/stream/<stream>.m3u8', methods=['GET',])
 def get_playlist(stream):
     print('stream>', stream)
     content, status_code = SimpleMediaserver.get_playlist(stream)
@@ -30,7 +30,7 @@ def get_playlist(stream):
         mimetype='application/vnd.apple.mpegurl'
     )
 
-@app.route('/api/video/<stream>/<chank_name>.ts', methods=['GET',])
+@app.route('/api/video/stream/<stream>/<chank_name>.ts', methods=['GET',])
 def get_chank(stream, chank_name):
     content, status_code = SimpleMediaserver.get_chank(stream, chank_name)
     return Response(content,

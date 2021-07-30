@@ -37,7 +37,7 @@ class HlsPlayer extends React.Component {
             console.log('onPlayerReady', this);
             const errorDisplay = this.player.getChild('errorDisplay');
             errorDisplay.off(this.player, 'error', errorDisplay.open);
-            const src = `/api/video/${this.props.stream}.m3u8`;
+            const src = `/api/video/stream/${this.props.stream}.m3u8`;
             this.player.play();
             try {
                 this.player.src({src: src, type: 'application/x-mpegURL', withCredentials: true});

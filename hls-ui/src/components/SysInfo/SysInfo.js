@@ -12,7 +12,7 @@ const SysInfo = ({stream}) => {
                 .then(resp => {
                     setInfo(resp.data);
                 })
-        }, 500);
+        }, 2000);
         return () => clearInterval(id);
     }, []);
 

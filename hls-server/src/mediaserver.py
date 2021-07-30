@@ -17,20 +17,22 @@ HLS_DATA_FOLDER = os.getenv('HLS_DATA_FOLDER', '/tmp/hls-data')
 
 CONFIG_PATH = '/tmp/config.cfg'
 CONFIG_DEFAULT = {
-    'uri': 'rtsp://admin:skokov92@192.168.1.102:554/',
+    'uri': 'rtsp://admin:Qwerty123456@192.168.1.102:554/',
     'resolution': '1920x1080',
-    'bitrate': '1M',
+    'bitrate': '4M',
     'i-frame': 50,
-    'preset': 'ultrafast',
-    'crf': 21,
+    'preset': 'fast',
+    'crf': 20,
     'fps': 25,
 }
 
+# pass
+# umh:partitions
 FFMPEG_CMD_ENCDEC_TEMPLATE = '''ffmpeg -i {uri}
         -c:v libx264 -r {fps} -s {resolution} -crf {crf} -maxrate {bitrate} -bufsize 2M -preset {preset} -keyint_min {i-frame} -g {i-frame} -sc_threshold 0
         -c:a aac -b:a 128k -ac 1
         -f hls
-            -hls_time 2
+            -hls_time 4
             -hls_list_size 5
             -use_localtime_mkdir 1
             -hls_segment_filename {stream}/data%06d.ts
@@ -43,7 +45,7 @@ FFMPEG_CMD_ORIGINAL_TEMPLATE = '''ffmpeg -i {uri}
     -c:v copy
     -c:a copy
     -f hls
-        -hls_time 2
+        -hls_time 4
         -hls_list_size 5
         -use_localtime_mkdir 1
         -hls_segment_filename {stream}/data%06d.ts
