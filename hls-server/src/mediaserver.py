@@ -13,7 +13,7 @@ from MediaInfo import MediaInfo
 STREAM_NAME_ORIGINAL = 'original'
 STREAM_NAME_ENCDEC   = 'stream'
 
-HLS_DATA_FOLDER = '/tmp/hls-data'
+HLS_DATA_FOLDER = os.getenv('HLS_DATA_FOLDER', '/tmp/hls-data')
 
 CONFIG_PATH = '/tmp/config.cfg'
 CONFIG_DEFAULT = {
@@ -23,15 +23,12 @@ CONFIG_DEFAULT = {
     'i-frame': 50,
     'preset': 'ultrafast',
     'crf': 21,
+    'fps': 25,
 }
 
-
-# pass
-# umh:partitions
-
 FFMPEG_CMD_ENCDEC_TEMPLATE = '''ffmpeg -i {uri}
-        -c:v libx264 -r 25 -s {resolution} -crf {crf} -maxrate {bitrate} -preset {preset} -keyint_min {i-frame} -g {i-frame} -sc_threshold 40
-        -c:a copy
+        -c:v libx264 -r {fps} -s {resolution} -crf {crf} -maxrate {bitrate} -bufsize 2M -preset {preset} -keyint_min {i-frame} -g {i-frame} -sc_threshold 0
+        -c:a aac -b:a 128k -ac 1
         -f hls
             -hls_time 2
             -hls_list_size 5
@@ -167,6 +164,7 @@ class SimpleMediaserver:
         cmd = template \
             .format(**mod_config)\
             .replace('\n', '')
+        print('cmd>', cmd)
         return subprocess.Popen(
             cmd.split(),
             shell=False,

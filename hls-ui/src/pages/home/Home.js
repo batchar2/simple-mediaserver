@@ -1,12 +1,11 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React from "react";
 
-import axios from 'axios';
-import ReactHlsPlayer from 'react-hls-player';
-import ReactSpeedometer from "react-d3-speedometer"
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import HlsPlayer from "../../components/HlsPlayer";
 import SysInfo from "../../components/SysInfo";
 
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 
 const Home = () => {
@@ -15,15 +14,41 @@ const Home = () => {
             <Row>
                 <h3>Home</h3>
             </Row>
-            <Row>
-                <Col sm={11}>
-                    {
-                        <HlsPlayer src="/api/video/stream.m3u8"/>
-                    }
-                </Col>
-                <Col sm={1}>
-                    <SysInfo/>
-                </Col>
+            <Row fluid={"true"}>
+                <Tabs>
+                    <TabList>
+
+                        <Tab>Encode&Decode</Tab>
+                        <Tab>Original</Tab>
+                    </TabList>
+
+                    <TabPanel>
+                        <Row>
+                            <Col sm={9}>
+                                {
+                                    <HlsPlayer stream="stream"/>
+                                }
+                            </Col>
+                            <Col sm={3}>
+                                <SysInfo stream={'stream'}/>
+                            </Col>
+                        </Row>
+                    </TabPanel>
+                    <TabPanel>
+                        <Row>
+                            <Col sm={9}>
+                                {
+                                    <HlsPlayer stream="original"/>
+                                }
+                            </Col>
+                            <Col sm={3}>
+                                <SysInfo stream={'original'}/>
+                            </Col>
+                        </Row>
+                    </TabPanel>
+                </Tabs>
+
+
             </Row>
         </div>
 

@@ -1,8 +1,8 @@
 .App {
-  background-color: #282c34;
+  background-color: #f5f6fa;
   min-height: 100vh;
-  color: white;
-  font-size: calc(10px + 2vmin);
+  color: black;
+  font-size: 14px;
 }
 
 #content {
@@ -11,8 +11,68 @@
   padding-top: 15px;
 }
 
+.main-row {
+  width: 100%;
+}
+
 #left-menu {
   position: absolute;
   width: 220px;
   height: 100vh;
+}
+
+.left-menu-wrapper {
+  max-width: 244px;
+}
+
+.form-control, .form-select {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #838591;
+  box-shadow: none;
+}
+
+.btn-check:focus+.btn-secondary, .btn-secondary:focus {
+  box-shadow: none;
+  border: none;
+}
+
+.btn-check:active+.btn-secondary:focus, .btn-check:checked+.btn-secondary:focus, .btn-secondary.active:focus, .btn-secondary:active:focus, .show>.btn-secondary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.btn-secondary {
+ border: none;
+}
+
+.react-tabs .react-tabs__tab--selected {
+  background: #f5f6fa;
+  border-bottom: 0;
+}
+
+.graph-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pro-sidebar-header {
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
+.pro-sidebar-footer .pro-item-content p{
+  margin-bottom: 0;
+}
+
+.left-menu-wrapper .pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item {
+  padding: 8px 20px 8px 20px;
+}
+
+.no-stream {
+  height: 800px;
 }

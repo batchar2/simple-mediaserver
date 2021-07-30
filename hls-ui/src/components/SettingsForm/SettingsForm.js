@@ -1,16 +1,11 @@
-import React, {useState} from "react";
-import { useForm, Controller } from "react-hook-form";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-import Select from 'react-select'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 const SettingsForm = ({data, onSubmit}) => {
-    console.log('data>',data)
-    const { register, handleSubmit, setValue, control } = useForm(data);
-
-
-    const resolutionOptions =["1920x1080", "1280x720", "720x480", "480x360", "360x280",];
+    const { register, handleSubmit } = useForm(data);
     return (
         <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
             <Row>
@@ -24,26 +19,54 @@ const SettingsForm = ({data, onSubmit}) => {
                 </div>
             </Row>
             <Row>
+                <label htmlFor="fps" className="col-sm-2 col-form-label">Frame rate</label>
+                <div className="col-sm-2">
+                    <div className="form-group">
+                        <select
+                            className="form-select"
+                            defaultValue={data && data['fps']}
+                            {...register("fps")}
+                        >
+                            <option value="60">60</option>
+                            <option value="50">50</option>
+                            <option value="40">40</option>
+                            <option value="30">30</option>
+                            <option value="25">25</option>
+                            <option value="20">20</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+                </div>
+            </Row>
+            <Row>
                 <label htmlFor="resolution" className="col-sm-2 col-form-label">Resolution</label>
                 <div className="col-sm-2">
+                    <div className="form-group">
                     <select
+                        className="form-select"
                         defaultValue={data && data['resolution']}
                         {...register("resolution")}
                     >
-                        <option key="3840x2160" value="3840x2160">3840x2160</option>
-                        <option key="2048×1080" value="2048×1080">2048×1080</option>
-                        <option key="1920x1080" value="1920x1080">1920x1080</option>
-                        <option key="1280x720" value="1280x720">1280x720</option>
+                        <option value="3840x2160">3840x2160</option>
+                        <option value="2048×1080">2048×1080</option>
+                        <option value="1920x1080">1920x1080</option>
+                        <option value="1280x720">1280x720</option>
                         <option value="720x480">720x480</option>
                         <option value="480x360">480x360</option>
                         <option value="360x280">360x280</option>
                     </select>
+                    </div>
                 </div>
             </Row>
+
+
+
+
             <Row>
                 <label htmlFor="bitrate" className="col-sm-2 col-form-label">Bitrate</label>
                 <div className="col-sm-2">
                     <select
+                        className="form-select"
                         defaultValue={data && data['bitrate']}
                         {...register("bitrate")}
                     >
@@ -58,7 +81,7 @@ const SettingsForm = ({data, onSubmit}) => {
                         <option value="2M">2M</option>
                         <option value="1.8M">1.8M</option>
                         <option value="1.5M">1.5M</option>
-                        <option value="1M">1M0</option>
+                        <option value="1M">1M</option>
                         <option value="0.8M">0.8M</option>
                         <option value="0.5M">0.5M</option>
                     </select>
@@ -68,6 +91,7 @@ const SettingsForm = ({data, onSubmit}) => {
                 <label htmlFor="i-frame" className="col-sm-2 col-form-label">I-frame interval</label>
                 <div className="col-sm-2">
                     <select
+                        className="form-select"
                         defaultValue={data && data['i-frame']}
                         {...register("i-frame")}
                     >
@@ -90,6 +114,7 @@ const SettingsForm = ({data, onSubmit}) => {
                 <label htmlFor="preset" className="col-sm-2 col-form-label">preset</label>
                 <div className="col-sm-2">
                     <select
+                        className="form-select"
                         defaultValue={data && data['preset']}
                         {...register("preset")}
                     >
@@ -109,6 +134,7 @@ const SettingsForm = ({data, onSubmit}) => {
                 <label htmlFor="CRF" className="col-sm-2 col-form-label">CRF</label>
                 <div className="col-sm-2">
                     <select
+                        className="form-select"
                         defaultValue={data && data['crf']}
                         {...register("crf")}
                     >
@@ -166,11 +192,35 @@ const SettingsForm = ({data, onSubmit}) => {
                     </select>
                 </div>
             </Row>
+            {/*<Row>*/}
+            {/*    <label htmlFor="partitions" className="col-sm-2 col-form-label">Partitions</label>*/}
+            {/*    <div className="col-sm-2">*/}
+            {/*        <select*/}
+            {/*            className="form-select"*/}
+            {/*            defaultValue={data && data['partitions']}*/}
+            {/*            {...register("partitions")}*/}
+            {/*        >*/}
+            {/*            <option value="8M">8M</option>*/}
+            {/*            <option value="7M">7M</option>*/}
+            {/*            <option value="6M">6M</option>*/}
+            {/*            <option value="5M">5M</option>*/}
+            {/*            <option value="4M">4M</option>*/}
+            {/*            <option value="3.5M">3.5M</option>*/}
+            {/*            <option value="3M">3M</option>*/}
+            {/*            <option value="2.5M">2.5M</option>*/}
+            {/*            <option value="2M">2M</option>*/}
+            {/*            <option value="1.8M">1.8M</option>*/}
+            {/*            <option value="1.5M">1.5M</option>*/}
+            {/*            <option value="1M">1M</option>*/}
+            {/*            <option value="0.8M">0.8M</option>*/}
+            {/*            <option value="0.5M">0.5M</option>*/}
+            {/*        </select>*/}
+            {/*    </div>*/}
+            {/*</Row>*/}
             <Row>
                 <Col>
-                    <button type="submit">Start</button>
+                    <button type="submit" className="btn btn-secondary">Start</button>
                 </Col>
-
             </Row>
         </form>
     );

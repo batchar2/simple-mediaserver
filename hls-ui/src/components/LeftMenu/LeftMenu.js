@@ -25,7 +25,7 @@ const LeftMenu = () => (
             <SidebarHeader>
                 <div className="logotext">
                     {/* small and big change using menucollapse state */}
-                    <p style={{textAlign: "center"}}>HLS</p>
+                    <h4 style={{textAlign: "center"}}>HLS</h4>
                 </div>
             </SidebarHeader>
             <SidebarContent>

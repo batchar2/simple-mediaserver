@@ -1,5 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import './App.css';
 
@@ -10,23 +10,22 @@ import LeftMenu from "../components/LeftMenu";
 const App = () => {
     return (
         <div className="App">
+            <Row className="main-row">
+                <Col sm={2} className="left-menu-wrapper">
+                    <div id="left-menu">
+                        <LeftMenu/>
+                    </div>
+                </Col>
 
-            <div id="left-menu">
-                <LeftMenu/>
-            </div>
-
-            <div id="content">
-                <Container>
-                    <Row>
-                        <Col>
-                            <Switch>
-                                <Route path="/" component={Home} exact />
-                                <Route path="/settings" component={Settings} />
-                            </Switch>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+                <Col sm={10}>
+                    <div id="content">
+                        <Switch>
+                            <Route path="/" component={Home} exact />
+                            <Route path="/settings" component={Settings} />
+                        </Switch>
+                    </div>
+                </Col>
+            </Row>
         </div>
     );
 };
