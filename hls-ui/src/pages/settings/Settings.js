@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { css } from "@emotion/react";
+import FadeLoader from "react-spinners/FadeLoader";
 
 import SettingsForm from "../../components/SettingsForm";
+
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: black;
+`;
 
 const Settings = () => {
     const [isSaved, SetIsSaved] = useState(undefined);
@@ -20,7 +29,6 @@ const Settings = () => {
                 SetIsSaved(true);
             });
     };
-    console.log('isSaved>', isSaved)
     return (
         <>
             <h2>Settings</h2>
@@ -31,7 +39,13 @@ const Settings = () => {
                     </div>
             }
             {
-                settings && <SettingsForm onSubmit={onSubmit} data={settings}/>
+                (settings)
+                ?
+                    <SettingsForm onSubmit={onSubmit} data={settings}/>
+                :
+                    <div style={{paddingTop: '200px'}}>
+                        <FadeLoader loading={true} css={override} size={150} />
+                    </div>
             }
 
         </>

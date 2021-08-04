@@ -18,7 +18,19 @@ const SysInfo = ({stream}) => {
 
     return (
         <div className="graph-wrapper">
-                { info &&
+            {
+                info &&
+                    <div>
+                        Broadcast is working:
+                        <span>
+                        {
+                            (info.isAlive ? ' True' : ' False')
+                        }
+                        </span>
+                    </div>
+            }
+
+            { info &&
                 <ReactSpeedometer
                     width={250}
                     height={250}
@@ -31,8 +43,8 @@ const SysInfo = ({stream}) => {
                     endColor="red"
                 />
 
-                }
-                { info &&
+            }
+            { info &&
                 <ReactSpeedometer
                     width={250}
                     height={250}
@@ -44,8 +56,8 @@ const SysInfo = ({stream}) => {
                     startColor="green"
                     endColor="red"
                 />
-                }
-                { info &&
+            }
+            { info &&
                 <ReactSpeedometer
                     width={250}
                     height={250}
@@ -57,7 +69,7 @@ const SysInfo = ({stream}) => {
                     startColor="green"
                     endColor="red"
                 />
-                }
+            }
         </div>
     )
 };

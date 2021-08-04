@@ -47,7 +47,7 @@ COPY nginx/nginx.conf /etc/nginx/sites-available/default
 RUN echo "#!/usr/bin/env sh                         \n\
     nginx                                           \n\
     cd /hls-server/src/                             \n\
-    gunicorn --workers 1 --bind 0.0.0.0:8000 --access-logformat=' %(t)s %(r)s %(s)s  time_ms=%(M)s ' --access-logfile=- hls-server:app  \n\
+    gunicorn --workers 1 --threads 12 --bind 0.0.0.0:8000  hls-server:app  \n\
 " > /start.sh && chmod +x /start.sh
 
 

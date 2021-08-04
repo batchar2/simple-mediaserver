@@ -23,7 +23,6 @@ def set_settings():
 
 @app.route('/api/video/stream/<stream>.m3u8', methods=['GET',])
 def get_playlist(stream):
-    print('stream>', stream)
     content, status_code = SimpleMediaserver.get_playlist(stream)
     return Response(content,
         status=status_code,

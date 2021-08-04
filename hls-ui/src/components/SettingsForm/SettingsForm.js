@@ -19,6 +19,21 @@ const SettingsForm = ({data, onSubmit}) => {
                 </div>
             </Row>
             <Row>
+                <label htmlFor="codec" className="col-sm-2 col-form-label">Codec</label>
+                <div className="col-sm-2">
+                    <div className="form-group">
+                        <select
+                            className="form-select"
+                            defaultValue={data && data['codec']}
+                            {...register("codec")}
+                        >
+                            <option value="libx264">H264</option>
+                            <option value="libx265">H265</option>
+                        </select>
+                    </div>
+                </div>
+            </Row>
+            <Row>
                 <label htmlFor="fps" className="col-sm-2 col-form-label">Frame rate</label>
                 <div className="col-sm-2">
                     <div className="form-group">
@@ -48,6 +63,8 @@ const SettingsForm = ({data, onSubmit}) => {
                         {...register("resolution")}
                     >
                         <option value="3840x2160">3840x2160</option>
+                        <option value="2592x1944">2592x1944</option>
+                        <option value="2048×1536">2048×1536</option>
                         <option value="2048×1080">2048×1080</option>
                         <option value="1920x1080">1920x1080</option>
                         <option value="1280x720">1280x720</option>
